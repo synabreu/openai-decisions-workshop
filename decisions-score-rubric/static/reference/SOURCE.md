@@ -1,0 +1,2 @@
+Official distributed demo snapshot: https://developers.openai.com/api/docs/guides/decisions#score-against-a-rubric
+Extracted 2026-10-10 from an existing local official-page snapshot. HTML, CSS, demo JavaScript, images and fonts are preserved; asset URLs are localized. This is distributed browser source, not the unpublished authoring repository. Original demo uses illustrative animation; live.html uses our API controller.

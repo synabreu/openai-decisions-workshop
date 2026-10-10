@@ -1,0 +1,20 @@
+{
+  "routing": [
+    "I was charged twice for this month. Can you refund the extra payment? ",
+    "Every CSV export fails with an error, even after I refresh the page. ",
+    "I lost my phone and can’t get past two-step verification. "
+  ],
+  "document": [
+    "NORTHLINE STUDIO  № 1042 Invoice Billed to Cedar & Co. Design services $1,200.00 Amount due $1,200.00 Payment due October 21 ",
+    "NORTHLINE STUDIO  № 6853 Payment received Thank you for your purchase. Design services $1,200.00 Total paid $1,200.00 Visa ending in 4242 · Approved ",
+    "NORTHLINE STUDIO  01 / 03 Services agreement Between Northline Studio and Cedar & Co. The provider agrees to deliver design services for a term of twelve months. Provider signature Client signature "
+  ],
+  "driving": [
+    "Three lanes. Obstacles block lanes 2 and 3. Lane 1 is clear.",
+    "Three lanes. Obstacles block lanes 1 and 3. Lane 2 is clear.",
+    "Three lanes. Obstacles block lanes 1 and 2. Lane 3 is clear.",
+    "Three lanes. An obstacle blocks lane 2. Lanes 1 and 3 are clear.",
+    "Three lanes. An obstacle blocks lane 3. Lanes 1 and 2 are clear.",
+    "Three lanes. The road ahead is clear."
+  ]
+}

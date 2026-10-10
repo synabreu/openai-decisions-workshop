@@ -1,0 +1,13 @@
+**/.env
+**/.env.*
+!**/.env.example
+**/.venv*/
+**/__pycache__/
+**/*.py[cod]
+**/.web-packages/
+**/output/
+**/validation/
+*.log
+.DS_Store
+.vscode/
+decisions-insurance/
