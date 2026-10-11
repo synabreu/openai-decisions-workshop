@@ -24,10 +24,10 @@
 
 평가 기준은 다음과 같다. 단계 번호는 낮은 수준부터 `0`, `1`, `2`다.
 
-| 탭 | API 입력 | 질문 | 평가 기준 |
-| --- | --- | --- | --- |
-| Package | 현재 패키지 이미지 | How damaged is this package? | No damage → Minor damage → Major damage |
-| Urgent request | 현재 요청 문구 | How urgent is this request? | Low → Medium → High |
+| 탭             | API 입력           | 질문                         | 평가 기준                                 |
+| -------------- | ------------------ | ---------------------------- | ----------------------------------------- |
+| Package        | 현재 패키지 이미지 | How damaged is this package? | No damage → Minor damage → Major damage |
+| Urgent request | 현재 요청 문구     | How urgent is this request?  | Low → Medium → High                     |
 
 `score`는 단계 번호의 확률 가중 평균이다. 예를 들어 세 단계의 probability가 각각 `0.10`, `0.70`, `0.20`이면 점수는 `0×0.10 + 1×0.70 + 2×0.20 = 1.10`이다. `confidence`는 API가 반환하는 별도 값이며 실제 정확도를 보장하지 않는다.
 
@@ -108,42 +108,41 @@ flowchart TD
 
 [GitHub의 decisions-score-rubric](https://github.com/synabreu/openai-decisions-workshop/tree/main/decisions-score-rubric)에 등록된 전체 파일 31개를 기준으로 정리한다. 로컬에만 있는 환경 파일, 가상환경, 캐시, 검증 결과, setup.ps1 및 runtime_check.py 등은 포함하지 않는다.
 
-| 폴더 | 파일명 | 내용 및 역할 |
-| --- | --- | --- |
-| 프로젝트 루트 | `.env.example` | API 키와 기존 환경 파일 경로를 설정하는 빈 예제 양식이다. 실제 비밀값은 포함하지 않는다. |
-| 프로젝트 루트 | `.gitignore` | 환경 파일, 가상환경, 캐시 및 실행 결과의 Git 업로드를 제외한다. |
-| 프로젝트 루트 | `README.md` | 실행 방법, 실제 API 동작 및 프로젝트 구성을 안내한다. |
-| 프로젝트 루트 | `config.py` | 환경변수와 프로젝트 환경 파일 또는 OPENAI_ENV_FILE에 지정한 기존 파일에서 API 키를 읽는다. |
-| 프로젝트 루트 | `requirements.txt` | Flask, OpenAI SDK, python-dotenv 등 실행 의존성을 정의한다. |
-| 프로젝트 루트 | `run-local.cmd` | Windows에서 프로젝트 가상환경의 Python으로 서버를 실행한다. |
-| 프로젝트 루트 | `score_example.py` | 고정된 Safari/Chrome 문제 설명을 severity 기준으로 실제 API에 전달하고 점수 또는 판단 거부를 출력한다. |
-| 프로젝트 루트 | `server.py` | 데모 화면과 /api/score를 제공하고 예제 입력 구성, 실제 API 호출, 점수·확률 검증 및 오류 처리를 수행한다. |
-| `static/` | `demo.css` | 데모 카드의 배치와 반응형 스타일, 재생 버튼 및 오류 안내를 정의한다. |
-| `static/` | `demo.js` | 탭과 예제를 제어하고 실제 API 요청, 응답 대기·점수 표시, 자동 재생 및 재시도를 처리한다. |
-| `static/` | `index.html` | Package / Urgent request 탭, 이미지·문구, 점수·확률 및 재생·재시도 컨트롤을 배치한다. |
-| `static/reference/` | `OpenAISans-Bold.woff` | OpenAI Sans의 굵은 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Bold.woff2` | OpenAI Sans의 굵은 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-BoldItalic.woff2` | OpenAI Sans의 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Light.woff` | OpenAI Sans의 가는 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Medium.woff` | OpenAI Sans의 중간 굵기 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Medium.woff2` | OpenAI Sans의 중간 굵기 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-MediumItalic.woff2` | OpenAI Sans의 중간 굵기 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Regular.woff` | OpenAI Sans의 기본 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Regular.woff2` | OpenAI Sans의 기본 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-RegularItalic.woff2` | OpenAI Sans의 기본 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Semibold.woff` | OpenAI Sans의 약간 굵은 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Semibold.woff2` | OpenAI Sans의 약간 굵은 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-SemiboldItalic.woff2` | OpenAI Sans의 약간 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `SOURCE.md` | 공식 배포 화면 자료의 출처와 추출·수정 정보를 기록한다. |
-| `static/reference/` | `demo.css` | 공식 데모의 이미지·요청 문구·점수·척도·확률 막대 스타일과 로컬 글꼴을 정의한다. |
-| `static/reference/` | `package-intact.webp` | 손상되지 않은 패키지 이미지로 화면 표시와 실제 API 입력에 사용한다. |
-| `static/reference/` | `package-major.webp` | 크게 손상된 패키지 이미지로 화면 표시와 실제 API 입력에 사용한다. |
-| `static/reference/` | `package-minor.webp` | 경미하게 손상된 패키지 이미지로 화면 표시와 실제 API 입력에 사용한다. |
-| `tests/` | `test_server.py` | 모의 API 응답으로 입력 검증, 요청 구성, 점수·확률 처리 및 화면 경로를 검증한다. |
-| 프로젝트 루트 | `verify_ui.py` | Playwright와 Edge에서 모의 API 응답을 사용해 탭, 점수 표시, 재생 제어와 모바일 화면을 검증한다. |
+| 폴더                  | 파일명                              | 내용 및 역할                                                                                              |
+| --------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 프로젝트 루트         | `.env.example`                    | API 키와 기존 환경 파일 경로를 설정하는 빈 예제 양식이다. 실제 비밀값은 포함하지 않는다.                  |
+| 프로젝트 루트         | `.gitignore`                      | 환경 파일, 가상환경, 캐시 및 실행 결과의 Git 업로드를 제외한다.                                           |
+| 프로젝트 루트         | `README.md`                       | 실행 방법, 실제 API 동작 및 프로젝트 구성을 안내한다.                                                     |
+| 프로젝트 루트         | `config.py`                       | 환경변수와 프로젝트 환경 파일 또는 OPENAI_ENV_FILE에 지정한 기존 파일에서 API 키를 읽는다.                |
+| 프로젝트 루트         | `requirements.txt`                | Flask, OpenAI SDK, python-dotenv 등 실행 의존성을 정의한다.                                               |
+| 프로젝트 루트         | `run-local.cmd`                   | Windows에서 프로젝트 가상환경의 Python으로 서버를 실행한다.                                               |
+| 프로젝트 루트         | `score_example.py`                | 고정된 Safari/Chrome 문제 설명을 severity 기준으로 실제 API에 전달하고 점수 또는 판단 거부를 출력한다.    |
+| 프로젝트 루트         | `server.py`                       | 데모 화면과 /api/score를 제공하고 예제 입력 구성, 실제 API 호출, 점수·확률 검증 및 오류 처리를 수행한다. |
+| `static/`           | `demo.css`                        | 데모 카드의 배치와 반응형 스타일, 재생 버튼 및 오류 안내를 정의한다.                                      |
+| `static/`           | `demo.js`                         | 탭과 예제를 제어하고 실제 API 요청, 응답 대기·점수 표시, 자동 재생 및 재시도를 처리한다.                 |
+| `static/`           | `index.html`                      | Package / Urgent request 탭, 이미지·문구, 점수·확률 및 재생·재시도 컨트롤을 배치한다.                  |
+| `static/reference/` | `OpenAISans-Bold.woff`            | OpenAI Sans의 굵은 글꼴을 WOFF 형식으로 제공한다.                                                         |
+| `static/reference/` | `OpenAISans-Bold.woff2`           | OpenAI Sans의 굵은 글꼴을 WOFF2 형식으로 제공한다.                                                        |
+| `static/reference/` | `OpenAISans-BoldItalic.woff2`     | OpenAI Sans의 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다.                                                 |
+| `static/reference/` | `OpenAISans-Light.woff`           | OpenAI Sans의 가는 글꼴을 WOFF 형식으로 제공한다.                                                         |
+| `static/reference/` | `OpenAISans-Medium.woff`          | OpenAI Sans의 중간 굵기 글꼴을 WOFF 형식으로 제공한다.                                                    |
+| `static/reference/` | `OpenAISans-Medium.woff2`         | OpenAI Sans의 중간 굵기 글꼴을 WOFF2 형식으로 제공한다.                                                   |
+| `static/reference/` | `OpenAISans-MediumItalic.woff2`   | OpenAI Sans의 중간 굵기 기울임 글꼴을 WOFF2 형식으로 제공한다.                                            |
+| `static/reference/` | `OpenAISans-Regular.woff`         | OpenAI Sans의 기본 글꼴을 WOFF 형식으로 제공한다.                                                         |
+| `static/reference/` | `OpenAISans-Regular.woff2`        | OpenAI Sans의 기본 글꼴을 WOFF2 형식으로 제공한다.                                                        |
+| `static/reference/` | `OpenAISans-RegularItalic.woff2`  | OpenAI Sans의 기본 기울임 글꼴을 WOFF2 형식으로 제공한다.                                                 |
+| `static/reference/` | `OpenAISans-Semibold.woff`        | OpenAI Sans의 약간 굵은 글꼴을 WOFF 형식으로 제공한다.                                                    |
+| `static/reference/` | `OpenAISans-Semibold.woff2`       | OpenAI Sans의 약간 굵은 글꼴을 WOFF2 형식으로 제공한다.                                                   |
+| `static/reference/` | `OpenAISans-SemiboldItalic.woff2` | OpenAI Sans의 약간 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다.                                            |
+| `static/reference/` | `SOURCE.md`                       | 공식 배포 화면 자료의 출처와 추출·수정 정보를 기록한다.                                                  |
+| `static/reference/` | `demo.css`                        | 공식 데모의 이미지·요청 문구·점수·척도·확률 막대 스타일과 로컬 글꼴을 정의한다.                       |
+| `static/reference/` | `package-intact.webp`             | 손상되지 않은 패키지 이미지로 화면 표시와 실제 API 입력에 사용한다.                                       |
+| `static/reference/` | `package-major.webp`              | 크게 손상된 패키지 이미지로 화면 표시와 실제 API 입력에 사용한다.                                         |
+| `static/reference/` | `package-minor.webp`              | 경미하게 손상된 패키지 이미지로 화면 표시와 실제 API 입력에 사용한다.                                     |
+| `tests/`            | `test_server.py`                  | 모의 API 응답으로 입력 검증, 요청 구성, 점수·확률 처리 및 화면 경로를 검증한다.                          |
+| 프로젝트 루트         | `verify_ui.py`                    | Playwright와 Edge에서 모의 API 응답을 사용해 탭, 점수 표시, 재생 제어와 모바일 화면을 검증한다.           |
 
 ## 6. 참고 자료
 
 * [OpenAI Developers 문서](https://developers.openai.com/api/docs/guides/decisions?utm_source=chatgpt.com#score-against-a-rubric)
 * [decisions-score-rubric 프로젝트 예제 소스](https://github.com/synabreu/openai-decisions-workshop/tree/main/decisions-score-rubric)
-
