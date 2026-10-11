@@ -1,5 +1,12 @@
 # 프로젝트의 입력 처리와 결과 제공을 담당한다.
 """Local choice demo with server-side Decisions API evaluation."""
+
+# 프로젝트 이름: OpenAI Descisions API (2) - Choice API
+# 설명: 예제2 - 정해진 선택지 중에서 선택하는 Choice API 사용
+# 작성자: 서진호
+# 버전: v1.0
+# 실행 예시: python server.py
+
 import argparse
 import json
 import math
@@ -10,13 +17,18 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, request, send_file
 from openai import OpenAI, OpenAIError
 
+# 현재 파일의 위치를 기준으로 환경 설정 파일을 읽는다.
 ROOT = Path(__file__).resolve().parent
 for path in (ROOT / '.env.local', ROOT / '.env'):
     load_dotenv(path)
 if os.environ.get('OPENAI_ENV_FILE'):
     load_dotenv(os.environ['OPENAI_ENV_FILE'])
+
+
+# Decisions API를 호출하고 결과를 캐시하는 서버를 제공한다.
 app = Flask(__name__)
 SAMPLES = json.loads((ROOT / 'static/samples.json').read_text(encoding='utf-8'))
+# Choices와 질문을 정의하고 각 모드에 대해 선택지와 질문을 매핑한다.
 CHOICES = {
     'driving': [('Lane 1', 'The left lane'), ('Lane 2', 'The middle lane'), ('Lane 3', 'The right lane')],
     'routing': [('Billing', 'Charges, payments, refunds and invoices'), ('Technical support', 'Product errors and broken functionality'), ('Account access', 'Login and authentication problems')],
@@ -44,10 +56,14 @@ def evaluate(mode, index):
                 'name': mode, 'type': 'choice', 'instructions': QUESTIONS[mode],
                 'choices': [{'value': value, 'description': description} for value, description in CHOICES[mode]],
             }])
+        # API 응답이 올바른지 검증하고 선택 결과와 확률을 반환한다.
         if not decision.answers or decision.answers[0].type != 'choice':
             raise ValueError('API가 판단을 거부했습니다. 확률을 표시할 수 없습니다.')
-        answer = decision.answers[0]
-        values = [value for value, _ in CHOICES[mode]]
+
+        answer = decision.answers[0] # API 응답의 선택지와 확률이 정의된 범위 내에 있는지 확인
+        values = [value for value, _ in CHOICES[mode]] # 선택지와 확률이 정의된 범위 내에 있는지 확인
+
+        # 선택지와 확률이 정의된 범위 내에 있는지 확인
         probabilities = {item.value: item.probability for item in answer.probabilities}
         if (set(probabilities) != set(values) or answer.choice not in values
                 or any(not math.isfinite(p) or not 0 <= p <= 1 for p in probabilities.values())
@@ -86,9 +102,11 @@ def main():
     # 실행 인자를 읽고 프로젝트의 주요 작업을 시작한다.
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=5054)
+
     args = parser.parse_args()
     if not 1 <= args.port <= 65535:
         parser.error('Port must be between 1 and 65535')
+    # 서버를 시작하고 지정된 포트에서 요청을 수신한다.
     app.run(host='127.0.0.1', port=args.port, threaded=True)
 
 # 파일을 직접 실행한 경우에만 서버나 콘솔 작업을 시작한다.
