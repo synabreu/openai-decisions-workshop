@@ -2,7 +2,7 @@
 # 설명: 예제3 - 평가 기준에 따라 점수 매기는 Score API 사용
 # 작성자: 서진호
 # 버전: v1.0
-# 실행 예시: python server.py
+# 실행 예시: python server.py --port 5083
 
 import base64
 import math
