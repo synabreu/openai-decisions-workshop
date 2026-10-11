@@ -30,12 +30,12 @@
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe server.py
+.\.venv\Scripts\python.exe server.py --port 5055
 ```
 
-http://127.0.0.1:5054/ 에 접속한다. Windows에서는 `run-local.cmd`를 실행해도 된다. 포트는 `--port 5055`로 변경한다. 기존 `.venv`의 Python 경로를 복구하고 필요한 패키지를 설치했다.
+http://127.0.0.1:5055/ 에 접속한다. Windows에서는 `run-local.cmd`를 실행해도 된다.
 
-### 2-2. macOS / Linux 운영체제 (bash·zsh)Permalink
+### 2-2. macOS / Linux 운영체제 (bash·zsh)
 
 Python 3.10 이상이 설치된 환경에서 decisions-fixed-options 프로젝트 폴더로 이동한 뒤 다음 명령을 실행한다. 기존 API 키는 위의 실제 API 연결 설명에 따라 .env에 설정한다.
 
@@ -43,10 +43,10 @@ Python 3.10 이상이 설치된 환경에서 decisions-fixed-options 프로젝�
 python -m venv .venv
 source .venv/bin/activate
 ./.venv/bin/python -m pip install -r requirements.txt
-./.venv/bin/python app.py
+./.venv/bin/python app.py --port 5055
 ```
 
-같은 컴퓨터의 브라우저에서 http://127.0.0.1:5054/에 접속한다. 실행 중인 터미널은 열어 둔다. 다른 포트를 사용하려면 ./.venv/bin/python app.py --port 5054으로 실행하고 http://127.0.0.1:5054/에 접속한다. run-local.cmd는 Windows 전용이다.
+같은 컴퓨터의 브라우저에서 http://127.0.0.1:5055/에 접속한다. 실행 중인 터미널은 열어 둔다. 다른 포트를 사용하려면 ./.venv/bin/python app.py --port 5055으로 실행하고 http://127.0.0.1:5055/에 접속한다. run-local.cmd는 Windows 전용이다.
 
 서버는 Ctrl+C로 종료하고, 가상환경은 deactivate로 비활성화한다.
 
@@ -98,42 +98,43 @@ Driving은 현재 장애물 배치를 설명한 텍스트로 차선을 판단하
 
 ## 4. 전체 폴더별 파일 구성
 
-| 폴더명 | 파일명 | 내용 및 역할 |
-| --- | --- | --- |
-| 프로젝트 루트 | `.env.example` | 실제 키 없이 API 키와 기존 환경 파일 경로의 설정 양식을 제공한다. |
-| 프로젝트 루트 | `.gitignore` | 환경 파일, 가상환경, 캐시 및 실행 결과의 Git 업로드를 제외한다. |
-| 프로젝트 루트 | `README.md` | 실행 방법, API 동작 및 프로젝트 구성을 안내한다. |
-| 프로젝트 루트 | `index.html` | 세 탭, 재생 제어, 데모 iframe 및 API 상태 안내를 배치한다. |
-| 프로젝트 루트 | `requirements.txt` | Flask, OpenAI SDK, python-dotenv 등 실행 의존성을 정의한다. |
-| 프로젝트 루트 | `run-local.cmd` | Windows에서 프로젝트 가상환경의 Python으로 서버를 실행한다. |
-| 프로젝트 루트 | `server.py` | Flask 서버와 실제 Decisions choice API 호출, 입력·응답 검증 및 메모리 캐시를 처리한다. |
-| `static/` | `bridge.js` | 상위 페이지와 iframe 사이의 탭·재생·높이·API 상태 및 재시도 메시지를 전달한다. |
-| `static/reference/` | `OpenAISans-Bold.woff` | OpenAI Sans의 굵은 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Bold.woff2` | OpenAI Sans의 굵은 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-BoldItalic.woff2` | OpenAI Sans의 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Light.woff` | OpenAI Sans의 가는 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Medium.woff` | OpenAI Sans의 중간 굵기 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Medium.woff2` | OpenAI Sans의 중간 굵기 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-MediumItalic.woff2` | OpenAI Sans의 중간 굵기 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Regular.woff` | OpenAI Sans의 기본 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Regular.woff2` | OpenAI Sans의 기본 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-RegularItalic.woff2` | OpenAI Sans의 기본 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Semibold.woff` | OpenAI Sans의 약간 굵은 글꼴을 WOFF 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-Semibold.woff2` | OpenAI Sans의 약간 굵은 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `OpenAISans-SemiboldItalic.woff2` | OpenAI Sans의 약간 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다. |
-| `static/reference/` | `SOURCE.md` | 공식 배포 화면 자료의 출처와 추출 정보를 기록한다. |
-| `static/reference/` | `choice.html` | Driving, Team routing, Document type의 iframe 내부 화면 구조를 정의한다. |
-| `static/reference/` | `demo.css` | 도로·차량·문서·선택지별 확률 영역의 공식 데모 스타일을 정의한다. |
-| `static/reference/` | `demo.js` | 기존 스크립트가 live.js로 대체되었음을 안내하는 주석을 담는다. |
-| `static/reference/` | `live.js` | 현재 예제를 표시하고 실제 API 요청, 선택값·확률 표시, 차량 위치 및 자동 재생을 제어한다. |
-| `static/` | `samples.json` | 장애물 배치 설명, 고객 문의 및 문서 텍스트의 고정 예제를 제공한다. |
-| `static/` | `style.css` | 상위 페이지의 글꼴, 탭, 여백 및 반응형 스타일을 정의한다. |
-| `static/` | `tabs.js` | 상위 탭의 선택 상태와 방향키·Home·End 키보드 동작을 처리한다. |
-| `tests/` | `test_choice.py` | 모의 SDK로 요청 구성, 캐시, 입력 검증, 판단 거부 및 민감 파일 접근 차단을 검증한다. |
-| 프로젝트 루트 | `verify_ui.py` | Playwright와 Edge로 세 탭의 결과 표시, 실패·재시도 및 데스크톱·모바일 화면을 검증한다. |
+| 폴더명                | 파일명                              | 내용 및 역할                                                                              |
+| --------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------- |
+| 프로젝트 루트         | `.env.example`                    | 실제 키 없이 API 키와 기존 환경 파일 경로의 설정 양식을 제공한다.                         |
+| 프로젝트 루트         | `.gitignore`                      | 환경 파일, 가상환경, 캐시 및 실행 결과의 Git 업로드를 제외한다.                           |
+| 프로젝트 루트         | `README.md`                       | 실행 방법, API 동작 및 프로젝트 구성을 안내한다.                                          |
+| 프로젝트 루트         | `index.html`                      | 세 탭, 재생 제어, 데모 iframe 및 API 상태 안내를 배치한다.                                |
+| 프로젝트 루트         | `requirements.txt`                | Flask, OpenAI SDK, python-dotenv 등 실행 의존성을 정의한다.                               |
+| 프로젝트 루트         | `run-local.cmd`                   | Windows에서 프로젝트 가상환경의 Python으로 서버를 실행한다.                               |
+| 프로젝트 루트         | `server.py`                       | Flask 서버와 실제 Decisions choice API 호출, 입력·응답 검증 및 메모리 캐시를 처리한다.   |
+| `static/`           | `bridge.js`                       | 상위 페이지와 iframe 사이의 탭·재생·높이·API 상태 및 재시도 메시지를 전달한다.         |
+| `static/reference/` | `OpenAISans-Bold.woff`            | OpenAI Sans의 굵은 글꼴을 WOFF 형식으로 제공한다.                                         |
+| `static/reference/` | `OpenAISans-Bold.woff2`           | OpenAI Sans의 굵은 글꼴을 WOFF2 형식으로 제공한다.                                        |
+| `static/reference/` | `OpenAISans-BoldItalic.woff2`     | OpenAI Sans의 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다.                                 |
+| `static/reference/` | `OpenAISans-Light.woff`           | OpenAI Sans의 가는 글꼴을 WOFF 형식으로 제공한다.                                         |
+| `static/reference/` | `OpenAISans-Medium.woff`          | OpenAI Sans의 중간 굵기 글꼴을 WOFF 형식으로 제공한다.                                    |
+| `static/reference/` | `OpenAISans-Medium.woff2`         | OpenAI Sans의 중간 굵기 글꼴을 WOFF2 형식으로 제공한다.                                   |
+| `static/reference/` | `OpenAISans-MediumItalic.woff2`   | OpenAI Sans의 중간 굵기 기울임 글꼴을 WOFF2 형식으로 제공한다.                            |
+| `static/reference/` | `OpenAISans-Regular.woff`         | OpenAI Sans의 기본 글꼴을 WOFF 형식으로 제공한다.                                         |
+| `static/reference/` | `OpenAISans-Regular.woff2`        | OpenAI Sans의 기본 글꼴을 WOFF2 형식으로 제공한다.                                        |
+| `static/reference/` | `OpenAISans-RegularItalic.woff2`  | OpenAI Sans의 기본 기울임 글꼴을 WOFF2 형식으로 제공한다.                                 |
+| `static/reference/` | `OpenAISans-Semibold.woff`        | OpenAI Sans의 약간 굵은 글꼴을 WOFF 형식으로 제공한다.                                    |
+| `static/reference/` | `OpenAISans-Semibold.woff2`       | OpenAI Sans의 약간 굵은 글꼴을 WOFF2 형식으로 제공한다.                                   |
+| `static/reference/` | `OpenAISans-SemiboldItalic.woff2` | OpenAI Sans의 약간 굵은 기울임 글꼴을 WOFF2 형식으로 제공한다.                            |
+| `static/reference/` | `SOURCE.md`                       | 공식 배포 화면 자료의 출처와 추출 정보를 기록한다.                                        |
+| `static/reference/` | `choice.html`                     | Driving, Team routing, Document type의 iframe 내부 화면 구조를 정의한다.                  |
+| `static/reference/` | `demo.css`                        | 도로·차량·문서·선택지별 확률 영역의 공식 데모 스타일을 정의한다.                       |
+| `static/reference/` | `demo.js`                         | 기존 스크립트가 live.js로 대체되었음을 안내하는 주석을 담는다.                            |
+| `static/reference/` | `live.js`                         | 현재 예제를 표시하고 실제 API 요청, 선택값·확률 표시, 차량 위치 및 자동 재생을 제어한다. |
+| `static/`           | `samples.json`                    | 장애물 배치 설명, 고객 문의 및 문서 텍스트의 고정 예제를 제공한다.                        |
+| `static/`           | `style.css`                       | 상위 페이지의 글꼴, 탭, 여백 및 반응형 스타일을 정의한다.                                 |
+| `static/`           | `tabs.js`                         | 상위 탭의 선택 상태와 방향키·Home·End 키보드 동작을 처리한다.                           |
+| `tests/`            | `test_choice.py`                  | 모의 SDK로 요청 구성, 캐시, 입력 검증, 판단 거부 및 민감 파일 접근 차단을 검증한다.       |
+| 프로젝트 루트         | `verify_ui.py`                    | Playwright와 Edge로 세 탭의 결과 표시, 실패·재시도 및 데스크톱·모바일 화면을 검증한다.  |
 
 ---
 
 ## 5. 참고 자료
+
 * [OpenAI Developers 문서](https://developers.openai.com/api/docs/guides/decisions?utm_source=chatgpt.com#select-from-fixed-options)
 * [decisions-fixed-options 프로젝트 예제 소스](https://github.com/synabreu/openai-decisions-workshop/tree/main/decisions-fixed-options)
