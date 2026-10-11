@@ -1,5 +1,6 @@
-# 프로젝트의 입력 처리와 결과 제공을 담당한다.
-"""Run the official severity snippet using the existing local API key."""
+# 프로젝트 이름: OpenAI Descisions API (3) - Score API
+# 설명: 예제3 - 평가 기준에 따라 점수 매기는 Score API 사용
+
 import config  # 사용이 승인된 기존 키를 복사하지 않고 읽는다.
 from openai import OpenAI
 
@@ -22,7 +23,9 @@ def main():
                 ],
             }],
         )
+    # 반환된 첫 판단의 형식과 점수를 확인할 준비를 한다.
     answer = decision.answers[0]
+    # API 응답의 선택지와 확률이 정의된 범위 내에 있는지 확인
     if answer.type == "refusal":
         print(f"Refused: {answer.name}")
     elif answer.type == "score":

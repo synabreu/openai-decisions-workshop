@@ -1,5 +1,8 @@
-# 프로젝트의 입력 처리와 결과 제공을 담당한다.
-
+# 프로젝트 이름: OpenAI Descisions API (3) - Score API
+# 설명: 예제3 - 평가 기준에 따라 점수 매기는 Score API 사용
+# 작성자: 서진호
+# 버전: v1.0
+# 실행 예시: python server.py
 
 import base64
 import math
@@ -8,8 +11,10 @@ from flask import Flask, jsonify, request, send_from_directory, redirect, url_fo
 from openai import OpenAI, APIStatusError, OpenAIError
 from config import ROOT
 
+
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 32 * 1024
+# Choices와 질문을 정의하고 각 모드에 대해 선택지와 질문을 매핑한다.
 TEXTS = [
     'Could you add a dark mode? It would be helpful when I work at night.',
     'CSV exports keep failing for one teammate. The rest of our team can still export.',
