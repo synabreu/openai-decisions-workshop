@@ -1,6 +1,3 @@
-# 프로젝트의 입력 처리와 결과 제공을 담당한다.
-"""Local choice demo with server-side Decisions API evaluation."""
-
 # 프로젝트 이름: OpenAI Descisions API (2) - Choice API
 # 설명: 예제2 - 정해진 선택지 중에서 선택하는 Choice API 사용
 # 작성자: 서진호
