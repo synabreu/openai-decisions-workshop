@@ -4,7 +4,7 @@
 
 - Package / Urgent request 탭과 키보드 방향키·Home·End 전환
 - 패키지 사진과 요청 문구를 순환하며 실제 Decisions API의 score를 표시
-- 점수(0~2), 단계별 probability(0~1), 척도 마커.
+- 점수(0~1), 척도 마커.
 - Pause animation / Resume animation.
 - 응답 전에는 `—`, 실패 시 오류와 재시도 버튼.
 
