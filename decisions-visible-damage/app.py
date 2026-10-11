@@ -1,4 +1,9 @@
-# 프로젝트의 입력 처리와 결과 제공을 담당한다.
+# 프로젝트 이름: OpenAI Descisions API (1) - Predicate 데모
+# 예제1 - 이미지에서 눈에 보이는 손상 여부를 확인하는 Predicate API 사용
+# 작성자: 서진호
+# 버전: v1.0
+# 실행 예시: python app.py --port 5053
+
 import base64
 import math
 import os
