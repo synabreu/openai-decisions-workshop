@@ -10,4 +10,4 @@
 *.log
 .DS_Store
 .vscode/
-decisions-insurance/
+**/.web-venv/

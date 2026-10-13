@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+.venv*/
+.web-venv/
+.web-packages/
+__pycache__/
+*.py[cod]
+output/
+validation/
+*.log

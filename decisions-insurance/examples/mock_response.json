@@ -1,0 +1,83 @@
+{
+  "model": "gpt-6-luna",
+  "answers": [
+    {
+      "name": "valid_insurance_claim",
+      "type": "predicate",
+      "probability": 0.98
+    },
+    {
+      "name": "claim_route",
+      "type": "choice",
+      "choice": "MEDICAL_REVIEW",
+      "confidence": 0.84,
+      "probabilities": [
+        {
+          "value": "AUTO_APPROVE",
+          "probability": 0.05
+        },
+        {
+          "value": "NORMAL_ADJUSTER",
+          "probability": 0.09
+        },
+        {
+          "value": "MEDICAL_REVIEW",
+          "probability": 0.84
+        },
+        {
+          "value": "FRAUD_REVIEW",
+          "probability": 0.01
+        },
+        {
+          "value": "EMERGENCY",
+          "probability": 0.01
+        }
+      ]
+    },
+    {
+      "name": "urgency",
+      "type": "score",
+      "score": 2,
+      "confidence": 0.78,
+      "probabilities": [
+        {
+          "label": "LOW",
+          "value": 1,
+          "probability": 0.07
+        },
+        {
+          "label": "MEDIUM",
+          "value": 2,
+          "probability": 0.78
+        },
+        {
+          "label": "HIGH",
+          "value": 3,
+          "probability": 0.14
+        },
+        {
+          "label": "CRITICAL",
+          "value": 4,
+          "probability": 0.01
+        }
+      ]
+    },
+    {
+      "name": "medical_attention_required",
+      "type": "predicate",
+      "probability": 0.91
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "input_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "output_tokens": 0,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 0
+  }
+}
